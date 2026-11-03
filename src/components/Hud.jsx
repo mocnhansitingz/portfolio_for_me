@@ -2,7 +2,7 @@ import { useProgress } from "@react-three/drei";
 import GithubSvg from "./SVG/GithubSvg";
 
 const GITHUB_URL = "https://github.com/mocnhansitingz";
-const OWNER_NAME = "Kim_Hung";
+const OWNER_NAME = "Kim Hung";
 
 // Links shown in the top right corner. Add your own: { label, href, Icon }.
 const SOCIALS = [{ label: "GitHub", href: GITHUB_URL, Icon: GithubSvg }];
