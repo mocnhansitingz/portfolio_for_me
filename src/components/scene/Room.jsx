@@ -112,14 +112,18 @@ function Room({ onHoverChange }) {
 
   const { clouds, swingers } = useMemo(() => {
     toonify(scene);
-    return {
-      clouds: [1, 2, 3].map((i) => scene.getObjectByName(`Cloud_${i}`)),
-      swingers: SWINGERS.map(([name, size, speed, damping]) => {
-        const object = scene.getObjectByName(name);
-        object.userData.home ??= object.rotation.z;
-        return { object, size, speed, damping, start: -Infinity };
-      }),
-    };
+    const clouds = [1, 2, 3]
+      .map((i) => scene.getObjectByName(`Cloud_${i}`))
+      .filter(Boolean);
+
+    const swingers = SWINGERS.map(([name, size, speed, damping]) => {
+      const object = scene.getObjectByName(name);
+      if (!object) return null;
+      object.userData.home ??= object.rotation.z;
+      return { object, size, speed, damping, start: -Infinity };
+    }).filter(Boolean);
+
+    return { clouds, swingers };
   }, [scene]);
 
   useFrame((_, dt) => {
@@ -130,6 +134,7 @@ function Room({ onHoverChange }) {
 
     // A poke sets the prop swinging like a pendulum until it settles.
     for (const { object, size, speed, damping, start } of swingers) {
+      if (!object) continue;
       const time = clock.elapsedTime - start;
       const swing =
         time < 6

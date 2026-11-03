@@ -1,6 +1,8 @@
 // A small snake game that runs on BMO's screen.
 // It only knows about a 2D canvas; the scene feeds it time, the UI feeds it input.
 
+import { playUiSound } from "../sound";
+
 const COLS = 20;
 const ROWS = 12;
 const CELL = 38;
@@ -81,6 +83,7 @@ export function createSnakeGame() {
 
   const start = () => {
     if (snapshot.phase === "over") reset();
+    playUiSound("game");
     publish({ phase: "playing" });
   };
 
@@ -96,6 +99,7 @@ export function createSnakeGame() {
       snake.slice(0, -1).some((s) => s.x === head.x && s.y === head.y);
 
     if (crashed) {
+      playUiSound("close");
       const best = Math.max(snapshot.best, snapshot.score);
       if (best !== snapshot.best) writeBest(best);
       publish({ phase: "over", best });
@@ -104,6 +108,7 @@ export function createSnakeGame() {
 
     snake.unshift(head);
     if (head.x === food.x && head.y === food.y) {
+      playUiSound("success");
       placeFood();
       publish({ score: snapshot.score + 1 });
     } else {

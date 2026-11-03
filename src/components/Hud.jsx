@@ -8,7 +8,7 @@ const OWNER_NAME = "Kim Hung";
 const SOCIALS = [{ label: "GitHub", href: GITHUB_URL, Icon: GithubSvg }];
 
 // `toast` is a short notice to show under the header.
-function Hud({ focused, toast }) {
+function Hud({ focused, toast, soundEnabled, onToggleSound }) {
   const { active } = useProgress();
   const year = new Date().getFullYear();
 
@@ -22,14 +22,24 @@ function Hud({ focused, toast }) {
             className="h-10 w-10 rounded-xl border-2 border-ink object-cover bg-white"
           />
           <div className="leading-none">
-            <div className="font-display text-xl text-ink">BMO</div>
+            <div className="font-display text-xl text-ink">Moc Nhan</div>
             <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/70">
               Portfolio
             </div>
           </div>
         </div>
 
-        <ul className="pointer-events-auto flex gap-2">
+        <ul className="pointer-events-auto flex items-center gap-2">
+          <li>
+            <button
+              type="button"
+              aria-label={soundEnabled ? "Mute sound" : "Enable sound"}
+              onClick={onToggleSound}
+              className="sticker block px-3 py-2 text-sm font-black text-ink transition-transform hover:-translate-y-0.5"
+            >
+              {soundEnabled ? "🔊" : "🔇"}
+            </button>
+          </li>
           {SOCIALS.map(({ label, href, Icon }) => (
             <li key={label}>
               <a
@@ -61,7 +71,6 @@ function Hud({ focused, toast }) {
             {active ? "Waking BMO up..." : "Pick a cassette to play a project"}
           </p>
         )}
-        <p className="text-xs text-ink/60">&#169; {year} {OWNER_NAME}.</p>
       </footer>
     </div>
   );
