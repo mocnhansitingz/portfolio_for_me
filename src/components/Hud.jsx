@@ -14,7 +14,21 @@ function Hud({ focused, toast }) {
 
   return (
     <div className="vignette pointer-events-none absolute inset-0 flex flex-col justify-between p-5 sm:p-8">
-      <header className="flex justify-end">
+      <header className="flex items-start justify-between gap-3">
+        <div className="pointer-events-auto sticker flex items-center gap-3 px-3 py-2">
+          <img
+            src="/favicon.png"
+            alt="BMO Portfolio logo"
+            className="h-10 w-10 rounded-xl border-2 border-ink object-cover bg-white"
+          />
+          <div className="leading-none">
+            <div className="font-display text-xl text-ink">BMO</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/70">
+              Portfolio
+            </div>
+          </div>
+        </div>
+
         <ul className="pointer-events-auto flex gap-2">
           {SOCIALS.map(({ label, href, Icon }) => (
             <li key={label}>
