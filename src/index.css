@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Luckiest+Guy&family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Luckiest Guy", cursive;
+  --font-body: "Fredoka", sans-serif;
+
+  --color-ink: #2b1b12;
+  --color-paper: #fff8e7;
+  --color-at-red: #eb3d4b;
+  --color-at-yellow: #f7d038;
+  --color-at-green: #6bd44a;
+  --color-at-blue: #5cc8f0;
+}
+
+:root {
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: #e0a566;
+  @apply text-ink;
+}
+
+body::selection {
+  @apply bg-at-yellow text-ink;
+}
+
+/* Thick cartoon outline for the display heading. */
+.text-outline {
+  -webkit-text-stroke: 6px var(--color-ink);
+  paint-order: stroke fill;
+  letter-spacing: 0.03em;
+}
+
+/* Soft darkening towards the corners to focus the eye on the table. */
+.vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgb(43 27 18 / 0.3) 100%
+  );
+}
+
+/* Paper card with a hard offset shadow, used for every floating UI piece. */
+.sticker {
+  @apply rounded-2xl border-4 border-ink bg-paper;
+  box-shadow: 5px 5px 0 var(--color-ink);
+}
+
+.btn {
+  @apply cursor-pointer rounded-xl border-[3px] border-ink px-4 py-1.5 font-bold text-ink transition-transform;
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--color-ink);
+}
+
+.tooltip {
+  @apply rounded-lg border-[3px] border-ink bg-paper px-3 py-1 font-bold whitespace-nowrap text-ink;
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+
+.panel-in {
+  animation: panel-in 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+}
+
+@media (orientation: landscape) {
+  .panel-in {
+    translate: 0 -50%;
+  }
+}
+
+.panel-pop {
+  animation: panel-in 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-in,
+  .panel-pop {
+    animation: none;
+  }
+}
